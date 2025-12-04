@@ -8,14 +8,14 @@ hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
       timeout: 300
-      runas: ec2-user
+      runas: ubuntu
 
   AfterInstall:
     - location: scripts/deploy_release.sh
       timeout: 300
-      runas: ec2-user
+      runas: ubuntu
 
   ApplicationStart:
     - location: scripts/restart_services.sh
       timeout: 120
-      runas: ec2-user
+      runas: ubuntu
