@@ -2,16 +2,20 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/laravel
-    overwrite: true
+    destination: /var/www/laravel/releases/tmp
 
 hooks:
-  AfterInstall:
-    - location: scripts/composer_install.sh
+  BeforeInstall:
+    - location: scripts/before_install.sh
       timeout: 300
-      runas: ubuntu
+      runas: ec2-user
+
+  AfterInstall:
+    - location: scripts/deploy_release.sh
+      timeout: 300
+      runas: ec2-user
 
   ApplicationStart:
     - location: scripts/restart_services.sh
-      timeout: 60
-      runas: ubuntu
+      timeout: 120
+      runas: ec2-user
